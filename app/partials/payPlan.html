@@ -1,56 +1,76 @@
 <div ng-controller="payPlanController">
     <div class='container bg-form col-6'>
         <form name="form" class="bootstrap-form col-3" novalidate>
+            <label>Calculate by: </label>
             <div class="form-check">
-            Calculate by number of installments or installment amount: <br />
-            <input type="radio" class="form-check-input" ng-model="payplan.calcType" value="numInstallments" />Number of Installments</label>
-            <input type="radio" class="form-check-input" ng-model="payplan.calcType" value="installmentAmount" />Installment Amount</label>
+                    <input type="radio" class="form-check-input" name="calcTypeRadios" ng-model="payplan.calcType" id="calcTypeRadios2"
+                        value="installmentAmount"/>
+                    <label class="form-check-label" for="calcTypeRadios2">Installment Amount</label>
+                </div>
+
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="calcTypeRadios" ng-model="payplan.calcType" id="calcTypeRadios1"
+                    value="numInstallments" />
+                <label class="form-check-label" for="calcTypeRadios1">Number of Installments</label>
             </div>
 
             <div class="form-group">
-            <label for="owedAmount">Owed Amount: </label>
-                <input type="number" class="form-control" ng-model="payplan.owedAmount" name="owedAmount" id = "owedAmount" aria-label="owedAmount"> 
+                <label for="owedAmount">Owed Amount: </label>
+                <input type="number" class="form-control" ng-model="payplan.owedAmount" name="owedAmount" id="owedAmount"
+                    aria-label="owedAmount">
 
             </div>
 
             <div class="form-group">
-            <label for="downPayment">Down Payment:</label>
-                <input type="number" class="form-control" ng-model="payplan.downPayment" name="downPayment" id="downPayment" aria-label="downPayment">  
+                <label for="downPayment">Down Payment:</label>
+                <input type="number" class="form-control" ng-model="payplan.downPayment" name="downPayment" id="downPayment"
+                    aria-label="downPayment">
             </div>
 
             <label for="firstDate">First Payment Date: </label>
-                    <input type="date" class="form-control" ng-model="payplan.firstDate" name="firstDate" id="firstDate" aria-label="firstDate"> 
-                <br />
+            <input type="date" class="form-control" ng-model="payplan.firstDate" name="firstDate" id="firstDate"
+                aria-label="firstDate">
+            <br />
 
             <div ng-show="payplan.calcType === 'installmentAmount'">
-            <label for="installmentAmount">Installment Amount:</label>
-                    <input type="number" class="form-control" ng-model="payplan.installmentAmount" name="installmentAmount" id="installmentAmount" aria-label="installmentAmount">
+                <label for="installmentAmount">Installment Amount:</label>
+                <input type="number" class="form-control" ng-model="payplan.installmentAmount" name="installmentAmount"
+                    id="installmentAmount" aria-label="installmentAmount">
             </div>
 
             <div ng-show="payplan.calcType === 'numInstallments'">
-            <label for="numPayments">Number of payments:</label>
-                <input type="number" class="form-control" ng-model="payplan.numPayments" name="numPayments" id="numPayments" aria-label="numPayments"> 
+                <label for="numPayments">Number of payments:</label>
+                <input type="number" class="form-control" ng-model="payplan.numPayments" name="numPayments" id="numPayments"
+                    aria-label="numPayments">
             </div>
 
-            Frequency:
-            <label><input type="radio" ng-model="payplan.frequency" value="monthly" />Monthly</label>
-            <label><input type="radio" ng-model="payplan.frequency" value="weekly" />Weekly</label>
+            <label>Frequency:</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="frequencyRadios" ng-model="payplan.frequency" id="frequencyRadios1"
+                    value="monthly" />
+                <label class="form-check-label" for="frequencyRadios1">Monthly</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" name="frequencyRadios" ng-model="payplan.frequency" id="frequencyRadios2"
+                    value="weekly" />
+                <label class="form-check-label" for="frequencyRadios2">Weekly</label>
+            </div>
 
-            <input class="btn btn-primary" type="submit" ng-click="doCalculate(payplan.owedAmount, payplan.downPayment, payplan.numPayments, payplan.firstDate, payplan.frequency, payplan.calcType, payplan.installmentAmount)"
+            <input class="btn btn-warning btn-large" type="submit" ng-click="doCalculate(payplan.owedAmount, payplan.downPayment, payplan.numPayments, payplan.firstDate, payplan.frequency, payplan.calcType, payplan.installmentAmount)"
                 value="Calculate" />
         </form>
     </div>
     <br />
     <table class='payPlanTable'>
         <thead>
-            <tr >
+            <tr>
                 <th>Installment Number</th>
                 <th>Installment Date</th>
                 <th>Installment Amount</th>
                 <th>Amount Remaining</th>
             </tr>
         </thead>
-        <tbody >
+        <tbody>
             <tr ng-repeat="payment in paymentList">
                 <td>{{$index + 1}}</td>
                 <td>{{payment.date}}</td>

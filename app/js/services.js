@@ -6,9 +6,7 @@ angular.module('PplnApp.services', [])
     var paymentCalculator = {}
 
     paymentCalculator.calculate = function(owedAmount, downPayment, numPayments) {
-      console.log("owedAmount = " + owedAmount)
       let newOwedAmount = owedAmount - downPayment;
-      console.log("in calculator service");
       let installmentAmount = 0;
 
       if (newOwedAmount > 0) {
