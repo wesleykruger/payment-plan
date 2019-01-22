@@ -29,6 +29,12 @@
   padding: 0;
 }
 
+.bg-form {
+  background-color: #327cad;
+  color: #FFFFFF;
+  border: 1px solid #AAAAAA;
+}
+
 table.payPlanTable {
   border: 2px solid #1C6EA4;
   background-color: #FFFFFF;
