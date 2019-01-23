@@ -92,3 +92,26 @@ table.payPlanTable tfoot .links a{
   padding: 2px 8px;
   border-radius: 5px;
 }
+
+body {
+  background-image: url('./../img/lights.jpg');
+}
+
+.centerAlign {
+  display: block;
+  margin: 0 auto;
+}
+
+.transparent {
+  background-color: rgba(242, 242, 242, 0.6)
+}
+
+.not-transparent {
+  background-color: #F2F2F2;
+
+}
+
+.dm-header {
+  background-color: #00629B;
+  height: 70px;
+}

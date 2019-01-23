@@ -10,11 +10,9 @@ angular.module('PplnApp.controllers', [])
       let dateForThisIndex = moment(firstDate).format("MM/DD/YYYY");
       let remainingBal = owedAmount - downPayment;
       if (calcType === 'installmentAmount') {
-        console.log("initial remaining Balance: " + remainingBal);
         while (remainingBal > 0) {
           // remainingBal += interestRate;
           if (remainingBal >= installmentAmount) {
-            console.log("in standard pay remain = " + remainingBal);
             remainingBal -= installmentAmount;
             installmentArray.push( {
               installmentAmount: installmentAmount,
@@ -28,28 +26,38 @@ angular.module('PplnApp.controllers', [])
             }
           } else {
             let finalPayment = remainingBal;
-            console.log("in final pay remain = " + finalPayment);
             installmentArray.push({
               installmentAmount: finalPayment,
               date: dateForThisIndex,
               remainingBal: 0
             });
             remainingBal = 0;
-            console.log("final remainingBal: " + remainingBal);
           }
         }
       } else if (calcType === 'numInstallments') {
-        let installmentAmount = paymentCalculatorService.calculate(owedAmount, downPayment, numPayments)
+        let newOwedAmount = owedAmount - downPayment;
+        let installmentAmount = 0;
+
+
+        // This is not accurate enough for production. This truncate decimals to match currency format, so a straight divide is not accurate enough.
+        // There is also interest to consider
+        if (newOwedAmount > 0) {
+          installmentAmount = newOwedAmount / numPayments
+        }
+
+
         for (let i = 1; i < numPayments; i++) {
           installmentArray.push({
             installmentAmount: installmentAmount,
-            date: dateForThisIndex
+            date: dateForThisIndex,
+            remainingBal: 0
           })
 
           if (frequency === 'weekly') {
-            dateForThisIndex = moment(dateForThisIndex).add(1, 'w').calendar()
+            console.log(dateForThisIndex)
+            dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'w').calendar()).format("MM/DD/YYYY");
           } else {
-            dateForThisIndex = moment(dateForThisIndex).add(1, 'M').calendar()
+            dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'M').calendar()).format("MM/DD/YYYY");
           }
 
         }
