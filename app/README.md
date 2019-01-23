@@ -4,26 +4,13 @@
 
 All you need to do is to clone this repository,
 
+Run npm start and the app will be available on port 5000.
 
-```
-git clone https://github.com/raonibr/f1feeder-part1
-cd f1feeder-part1
-```
+## Purpose
 
-Then, install the dependencies:
+This is a demo of a payment plan calculator that can be constructed in AngularJS.
 
-```
-npm install
-```
-
-Then, run the Application:
-
-```
-npm start
-```
-
-You can access your app at 
-
-```
-http://localhost:8000/app/
-```
+### Uses
+* AngularJS
+* Bootstrap v4
+* Moment.js
