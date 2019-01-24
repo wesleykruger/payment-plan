@@ -52,7 +52,7 @@ angular.module('PplnApp.controllers', [])
           installmentArray.push({
             installmentAmount: installmentAmount,
             date: dateForThisIndex,
-            remainingBal: 0
+            remainingBal: remainingBal
           })
 
           if (frequency === 'weekly') {
