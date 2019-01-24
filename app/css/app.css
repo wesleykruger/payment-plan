@@ -115,3 +115,11 @@ body {
   background-color: #00629B;
   height: 70px;
 }
+
+h3>.module-header {
+  font-size: 22px;
+  color: #6E6D6A;
+  line-height: 28px;
+  font-weight: 300;
+  color: blue;
+}

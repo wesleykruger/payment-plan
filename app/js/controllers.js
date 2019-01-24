@@ -20,9 +20,9 @@ angular.module('PplnApp.controllers', [])
               remainingBal: remainingBal
             });
             if (frequency === 'weekly') {
-              dateForThisIndex = moment(dateForThisIndex).add(1, 'w').calendar()
+              dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'w')).format("MM/DD/YYYY");
             } else {
-              dateForThisIndex = moment(dateForThisIndex).add(1, 'M').calendar()
+              dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'M')).format("MM/DD/YYYY");
             }
           } else {
             let finalPayment = remainingBal;
@@ -55,34 +55,15 @@ angular.module('PplnApp.controllers', [])
 
           if (frequency === 'weekly') {
             console.log(dateForThisIndex)
-            dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'w').calendar()).format("MM/DD/YYYY");
+            dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'w')).format("MM/DD/YYYY");
           } else {
-            dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'M').calendar()).format("MM/DD/YYYY");
+            dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'M')).format("MM/DD/YYYY");
           }
 
         }
       }
       $scope.paymentList = installmentArray
     };
-
-    $scope.paymentArr = [];
-    $scope.installmentAmount = 0;
-
-    $scope.master = {};
-
-    $scope.update = function (user) {
-      $scope.master = angular.copy(user);
-    };
-
-    $scope.reset = function (form) {
-      if (form) {
-        form.$setPristine();
-        form.$setUntouched();
-      }
-      $scope.user = angular.copy($scope.master);
-    };
-
-    $scope.reset();
   })
 
 

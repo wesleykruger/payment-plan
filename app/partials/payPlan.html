@@ -8,8 +8,7 @@
             <form name="form">
                 <div class="form-group col-12 has-feedback">
                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    <input type="text" class="form-control" ng-model="search" name="search" id="search"
-                        aria-label="search">
+                    <input type="text" class="form-control" ng-model="search" name="search" id="search" aria-label="search">
                 </div>
             </form>
         </div>
@@ -21,6 +20,11 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8 bg-light">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="module-title">Payment Plan</h3>
+                    </div>
+                </div>
                 <div class="row m-1">
                     <form name="form" class="bootstrap-form">
                         <label>Calculate by: </label>
@@ -40,7 +44,7 @@
                     <div class="form-group col-6">
                         <label for="owedAmount">Owed Amount: </label>
                         <input type="number" class="form-control" ng-model="payplan.owedAmount" name="owedAmount" id="owedAmount"
-                            aria-label="owedAmount">
+                            aria-label="owedAmount" required>
 
                     </div>
 
@@ -54,7 +58,7 @@
                     <div class="col-6">
                         <label for="firstDate">First Payment Date: </label>
                         <input type="date" class="form-control" ng-model="payplan.firstDate" name="firstDate" id="firstDate"
-                            aria-label="firstDate">
+                            aria-label="firstDate" required>
                     </div>
 
                     <div class="col-6">
@@ -106,8 +110,8 @@
                     <tr ng-repeat="payment in paymentList">
                         <td>{{$index + 1}}</td>
                         <td>{{payment.date}}</td>
-                        <td>{{payment.installmentAmount | currency:"R$"}}</td>
-                        <td>{{payment.remainingBal | currency:"R$"}}</td>
+                        <td>{{payment.installmentAmount | currency:"R$ "}}</td>
+                        <td>{{payment.remainingBal | currency:"R$ "}}</td>
                     </tr>
                 </tbody>
             </table>
