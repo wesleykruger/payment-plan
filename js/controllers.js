@@ -5,21 +5,25 @@ angular.module('PplnApp.controllers', [])
     $scope.paymentArr = [];
     $scope.installmentAmount = 0;
 
-    $scope.doCalculate = function (stringOwedAmount, stringDownPayment, numPayments, firstDate, frequency, calcType, stringInstallmentAmount) {
+    $scope.doCalculate = function (stringOwedAmount, stringDownPayment, numPayments, firstDate, frequency, calcType, stringInstallmentAmount, interestRateRaw) {
       let installmentArray = [];
       let owedAmount = parseFloat(stringOwedAmount);
       let downPayment = parseFloat(stringDownPayment);
       let installmentAmount = parseFloat(stringInstallmentAmount);
       let dateForThisIndex = moment(firstDate).format("MM/DD/YYYY");
       let remainingBal = owedAmount - downPayment;
+      let startingBal = 0;
+      let interestRate = interestRateRaw / 100;
+
       if (calcType === 'installmentAmount') {
         while (remainingBal > 0) {
-          // remainingBal += interestRate;
+          startingBal = (remainingBal * interestRate) + remainingBal;
           if (remainingBal >= installmentAmount) {
-            remainingBal -= installmentAmount;
+            remainingBal = startingBal - installmentAmount;
             installmentArray.push( {
               installmentAmount: installmentAmount,
               date: dateForThisIndex,
+              startingBal: startingBal,
               remainingBal: remainingBal
             });
             if (frequency === 'weekly') {
@@ -32,6 +36,7 @@ angular.module('PplnApp.controllers', [])
             installmentArray.push({
               installmentAmount: finalPayment,
               date: dateForThisIndex,
+              startingBal: startingBal,
               remainingBal: 0
             });
             remainingBal = 0;

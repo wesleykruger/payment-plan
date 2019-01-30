@@ -25,19 +25,26 @@
                         <h3 class="module-title">Create Payment Plan</h3>
                     </div>
                 </div>
+                <form name="form" class="bootstrap-form">
                 <div class="row m-1">
-                    <form name="form" class="bootstrap-form">
-                        <label>Calculate by: </label>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="calcTypeRadios" ng-model="payplan.calcType"
-                                id="calcTypeRadios2" value="installmentAmount" placeholder="$0.00" />
-                            <label class="form-check-label" for="calcTypeRadios2">Installment Amount</label>
+                        <div class='col-6'>
+                                <label>Calculate by: </label>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="calcTypeRadios" ng-model="payplan.calcType"
+                                        id="calcTypeRadios2" value="installmentAmount" placeholder="$0.00" />
+                                    <label class="form-check-label" for="calcTypeRadios2">Installment Amount</label>
+                                </div>
+        
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="calcTypeRadios" ng-model="payplan.calcType"
+                                        id="calcTypeRadios1" value="numInstallments" />
+                                    <label class="form-check-label" for="calcTypeRadios1">Number of Installments</label>
+                                </div>
                         </div>
-
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="calcTypeRadios" ng-model="payplan.calcType"
-                                id="calcTypeRadios1" value="numInstallments" />
-                            <label class="form-check-label" for="calcTypeRadios1">Number of Installments</label>
+                        <div class='col-6'>
+                            <label for='interestRate'>Annual Interest Rate</label>
+                            <input type='number' amount="payplan.interestRate" amount="payplan.interestRate" class="form-control" ng-model="payplan.interestRate" name="interestRate" id="interestRate"
+                                aria-label="interestRate" placeholder="0%" required>
                         </div>
                 </div>
                 <div class="row">
@@ -87,7 +94,7 @@
                     <label class="form-check-label" for="frequencyRadios2">Weekly</label>
                 </div>
 
-                <input class="btn btn-primary btn-large my-2" type="submit" ng-click="doCalculate(payplan.owedAmount, payplan.downPayment, payplan.numPayments, payplan.firstDate, payplan.frequency, payplan.calcType, payplan.installmentAmount)"
+                <input class="btn btn-primary btn-large my-2" type="submit" ng-click="doCalculate(payplan.owedAmount, payplan.downPayment, payplan.numPayments, payplan.firstDate, payplan.frequency, payplan.calcType, payplan.installmentAmount, payplan.interestRate)"
                     value="Calculate" />
                 </form>
             </div>
@@ -101,6 +108,7 @@
                     <tr>
                         <th>Installment Number</th>
                         <th>Installment Date</th>
+                        <th>Starting Balance</th>
                         <th>Installment Amount</th>
                         <th>Remaining Balance</th>
                     </tr>
@@ -109,6 +117,7 @@
                     <tr ng-repeat="payment in paymentList">
                         <td>{{$index + 1}}</td>
                         <td>{{payment.date}}</td>
+                        <td>{{payment.startingBal | currency: "R$"}}</td>
                         <td>{{payment.installmentAmount | currency:"R$ "}}</td>
                         <td>{{payment.remainingBal | currency:"R$ "}}</td>
                     </tr>
