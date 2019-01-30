@@ -1,5 +1,4 @@
 angular.module('PplnApp', [
-  'PplnApp.services',
   'PplnApp.controllers',
   'ngRoute'
   // require('angular-animate'),

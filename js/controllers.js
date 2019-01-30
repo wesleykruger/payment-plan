@@ -1,7 +1,7 @@
 angular.module('PplnApp.controllers', [])
 
   /* Payment plan controller */
-  .controller('payPlanController', function ($scope, paymentCalculatorService, moment) {
+  .controller('payPlanController', function ($scope, moment) {
     $scope.paymentArr = [];
     $scope.installmentAmount = 0;
 
@@ -13,14 +13,21 @@ angular.module('PplnApp.controllers', [])
       let dateForThisIndex = moment(firstDate).format("MM/DD/YYYY");
       let remainingBal = owedAmount - downPayment;
       let startingBal = 0;
-      let interestRate = interestRateRaw / 100;
+      let interestRate = 0;
+
+      if (frequency === 'weekly') {
+        interestRate = (interestRateRaw / 100) / 52
+      } else {
+        interestRate = (interestRateRaw / 100) / 12
+
+      }
 
       if (calcType === 'installmentAmount') {
         while (remainingBal > 0) {
           startingBal = (remainingBal * interestRate) + remainingBal;
-          if (remainingBal >= installmentAmount) {
+          if (startingBal >= installmentAmount) {
             remainingBal = startingBal - installmentAmount;
-            installmentArray.push( {
+            installmentArray.push({
               installmentAmount: installmentAmount,
               date: dateForThisIndex,
               startingBal: startingBal,
@@ -32,7 +39,7 @@ angular.module('PplnApp.controllers', [])
               dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'M')).format("MM/DD/YYYY");
             }
           } else {
-            let finalPayment = remainingBal;
+            let finalPayment = startingBal;
             installmentArray.push({
               installmentAmount: finalPayment,
               date: dateForThisIndex,
@@ -45,6 +52,7 @@ angular.module('PplnApp.controllers', [])
       } else if (calcType === 'numInstallments') {
         let newOwedAmount = owedAmount - downPayment;
         let installmentAmount = 0;
+
         // This is not accurate enough for production. This truncate decimals to match currency format, so a straight divide is not accurate enough.
         // There is also interest to consider
         if (newOwedAmount > 0) {
@@ -53,15 +61,16 @@ angular.module('PplnApp.controllers', [])
 
         let remainingBal = newOwedAmount
         for (let i = 0; i < numPayments; i++) {
+          startingBal = (remainingBal * interestRate) + remainingBal;
           remainingBal -= installmentAmount;
           installmentArray.push({
             installmentAmount: installmentAmount,
             date: dateForThisIndex,
-            remainingBal: remainingBal
+            remainingBal: remainingBal,
+            startingBal: startingBal
           })
 
           if (frequency === 'weekly') {
-            console.log(dateForThisIndex)
             dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'w')).format("MM/DD/YYYY");
           } else {
             dateForThisIndex = moment(moment(dateForThisIndex).add(1, 'M')).format("MM/DD/YYYY");
