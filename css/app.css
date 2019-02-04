@@ -123,3 +123,11 @@ h3>.module-header {
   font-weight: 300;
   color: blue;
 }
+
+    #percent-sign {
+        top: 8px;
+        left: 45px;
+        color: #555;
+        position: absolute;
+        z-index: 1;
+    }
