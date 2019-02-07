@@ -1,8 +1,8 @@
-# Payment Plan Demo
+# Payment Plan Demo - AngularJS
 
 ## Getting Started
 
-All you need to do is to clone this repository,
+All you need to do is to clone this repository and then install the necessary npm packages.
 
 Run npm start and the app will be available on port 5000.
 
