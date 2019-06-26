@@ -81,12 +81,3 @@ angular.module('PplnApp.controllers', [])
       $scope.paymentList = installmentArray
     };
   })
-
-
-  // .controller('Ctrl2', ['$scope', function($scope) {
-  //   $scope.percent = 5.45;
-  //   $scope.maxValue = 50;
-  //   $scope.maxDecimals = 2;
-  //   // $scope.dollarValue = '';
-  //   $scope.currencyIncludeDecimals = true;
-  // }]);
