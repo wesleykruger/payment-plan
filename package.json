@@ -13,7 +13,7 @@
     "start": "node server"
   },
   "dependencies": {
-    "angular": "^1.7.6",
+    "angular": "^1.8.3",
     "angular-animate": "^1.7.6",
     "angular-loader": "^1.7.6",
     "angular-mocks": "^1.7.6",
